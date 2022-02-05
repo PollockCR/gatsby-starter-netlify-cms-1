@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports = {
   siteMetadata: {
     title: "Gatsby + Netlify CMS Starter",
@@ -5,6 +6,21 @@ module.exports = {
       "This repo contains an example business website that is built with Gatsby, and Netlify CMS.It follows the JAMstack architecture by using Git as a single source of truth, and Netlify for continuous deployment, and CDN distribution.",
   },
   plugins: [
+    {
+			resolve: "@guyromellemagayano/gatsby-source-bigcommerce",
+			options: {
+				clientId: process.env.BIGCOMMERCE_API_CLIENT_ID,
+				secret: process.env.BIGCOMMERCE_API_SECRET,
+				accessToken: process.env.BIGCOMMERCE_API_ACCESS_TOKEN,
+				storeHash: process.env.BIGCOMMERCE_API_STORE_HASH,
+				endpoints: {
+					BigCommerceProducts: "/v3/catalog/products?include=images,variants,custom_fields,options,modifiers,videos",
+					BigCommerceCategories: "/v3/catalog/categories",
+					BigCommerceCategoriesTree: "/v3/catalog/categories/tree",
+					BigCommerceBrands: "/v3/catalog/brands"
+				}
+			}
+		},
     "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-sass",
